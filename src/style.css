@@ -1280,10 +1280,35 @@ html {
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
+    transform: none !important;
   }
 
   .hero-bubble.bubble-3 {
     grid-column: 1 / -1 !important;
+  }
+
+  /* Mobile Click / Tap & Hover State: No position displacement, just a subtle, smooth scale */
+  .hero-bubble:hover,
+  .hero-bubble:active,
+  .hero-bubble.bubble-1:hover,
+  .hero-bubble.bubble-1:active,
+  .hero-bubble.bubble-2:hover,
+  .hero-bubble.bubble-2:active,
+  .hero-bubble.bubble-3:hover,
+  .hero-bubble.bubble-3:active {
+    transform: scale(1.02) !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    box-shadow: 0 8px 24px rgba(0, 96, 100, 0.16) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .hero-bubble:hover .mobile-bubble-img,
+  .hero-bubble:active .mobile-bubble-img {
+    transform: scale(1.04) !important;
+    transition: transform 0.3s ease !important;
   }
 
   .bubble-mobile-content.bubble-mobile-wide {
