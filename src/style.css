@@ -917,16 +917,8 @@ html {
 .gallery-img,
 .service-hero-bg,
 .mobile-bubble-img {
-  opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
-}
-
-.img-loaded .card-img,
-.img-loaded .service-item-img,
-.img-loaded .gallery-img,
-.img-loaded .service-hero-bg,
-.img-loaded .mobile-bubble-img {
   opacity: 1;
+  transition: opacity 0.3s ease, transform 0.4s ease;
 }
 
 @keyframes skeletonShimmer {
@@ -1477,8 +1469,8 @@ html {
 .personnel-avatar-wrapper img,
 .service-hero-bg,
 .bubble-bg-img {
-  opacity: 0;
-  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-img-wrapper.img-loaded,
@@ -2425,8 +2417,13 @@ html {
 
 @media (max-width: 991px) {
   .service-grid-2col {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 24px;
+  }
+
+  .service-item-card {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
   }
 
   .service-hero-title {
