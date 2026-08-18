@@ -1,13 +1,15 @@
 import './style.css';
 import { renderNavbar, initNavbarInteractions } from './navbar';
 
-// Image Assets
+// Image Assets (Reorganized Assets Paths)
 import specializedServiceImg from './assets/specialized service.jpg';
 import qualityProductImg from './assets/quality product.jpg';
-import hbTest1Img from './assets/hb test1.jpg';
-import headboxImg from './assets/services/headbox service.jpg';
-import alignmentImg from './assets/services/alignment service.jpg';
-import niptestImg from './assets/services/niptest service.jpg';
+import headboxImg from './assets/services/headbox/headbox service.jpg';
+import alignmentImg from './assets/services/alignment/alignment service.jpg';
+import niptestImg from './assets/services/niptest/niptest service.jpg';
+import grindingImg from './assets/services/grindingcoating/grindingcoating service.jpg';
+import steamboxImg from './assets/services/steambox/steambox service.jpg';
+import otherServicesImg from './assets/services/other services.jpg';
 
 // Helper to determine the current active page
 function getCurrentPage(): string {
@@ -60,28 +62,50 @@ function renderHomePage() {
     <!-- Main Content -->
     <main class="main-content">
       
-      <!-- Hero Section -->
+      <!-- Hero Section with Floating Animated Bubbles -->
       <section class="page-hero">
         <div class="hero-container">
+          
+          <!-- Hero Text -->
           <div class="hero-text">
-            <h1 class="hero-title"><span>PM PRO</span></h1>
+            <h1 class="hero-title"><span>about us</span></h1>
             <p class="hero-subtitle">
               PMPRO company was established in 2011 in Thailand by experienced specialists who used to work many years in paper mill and in a key international paper machine manufacturer/services company. Our mission is to supply the paper mill for high quality services, upgrade and rebuild e.g. condition testing, reconditioning/repairing, maintenance services, trouble shooting, equipment renewal, upgrade of the paper machineries. As well as to supply spare parts, rolls and machineries related to paper industries. Our customers are key paper, board, tissue and pulp mills in Thailand and South East Asia's countries. We work closely with our partners and our principles to deliver the best solutions and services to our customers.
             </p>
           </div>
 
+          <!-- Hero Visual: 3 Floating Animated Bubbles -->
           <div class="hero-visual">
-            <div class="hero-image-card">
-              <img src="${specializedServiceImg}" alt="PM PRO Specialized Service" class="hero-img" />
-              <div class="hero-card-badge">
-                <div>
-                  <strong style="color: #006064; font-size: 0.95rem; display: block;">Specialized On-Site Team</strong>
-                  <span style="color: #64748b; font-size: 0.8rem;">Expert engineering and technical support</span>
-                </div>
-                <span style="background: #e0f2f1; color: #00838f; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">READY 24/7</span>
+            <div class="hero-bubbles-cluster">
+              
+              <!-- Bubble 1: On-Site Services and Products -->
+              <div class="hero-bubble bubble-1">
+                <div class="bubble-icon">⚙️</div>
+                <div class="bubble-title">On-Site Services and Products</div>
+                <div class="bubble-sub">for Paper/Board/Tissue Machines</div>
               </div>
+
+              <!-- Bubble 2: High Quality Products -->
+              <div class="hero-bubble bubble-2">
+                <img src="${qualityProductImg}" alt="High Quality Products" class="bubble-bg-img" />
+                <div class="bubble-overlay">
+                  <div class="bubble-title">High Quality Products</div>
+                  <div class="bubble-sub">from World-wide Suppliers</div>
+                </div>
+              </div>
+
+              <!-- Bubble 3: Specialized Services -->
+              <div class="hero-bubble bubble-3">
+                <img src="${specializedServiceImg}" alt="Specialized Services" class="bubble-bg-img" />
+                <div class="bubble-overlay">
+                  <div class="bubble-title">Specialized Services</div>
+                  <div class="bubble-sub">from PMPRO and Partners</div>
+                </div>
+              </div>
+
             </div>
           </div>
+
         </div>
 
         <!-- Bouncing Scroll Down Indicator -->
@@ -156,7 +180,7 @@ function renderHomePage() {
           <!-- Card 4: CD Profile System Service -->
           <div class="feature-card reveal-on-scroll" data-delay="0">
             <div class="card-img-wrapper">
-              <img src="${specializedServiceImg}" alt="CD profile system service" class="card-img" />
+              <img src="${steamboxImg}" alt="CD profile system service" class="card-img" />
             </div>
             <div class="card-body">
               <h3 class="card-title">CD profile system service</h3>
@@ -172,7 +196,7 @@ function renderHomePage() {
           <!-- Card 5: Grinding and Coating Service -->
           <div class="feature-card reveal-on-scroll" data-delay="120">
             <div class="card-img-wrapper">
-              <img src="${qualityProductImg}" alt="Grinding and coating service" class="card-img" />
+              <img src="${grindingImg}" alt="Grinding and coating service" class="card-img" />
             </div>
             <div class="card-body">
               <h3 class="card-title">Grinding and coating service</h3>
@@ -188,7 +212,7 @@ function renderHomePage() {
           <!-- Card 6: Other Service -->
           <div class="feature-card reveal-on-scroll" data-delay="240">
             <div class="card-img-wrapper">
-              <img src="${hbTest1Img}" alt="Other service" class="card-img" />
+              <img src="${otherServicesImg}" alt="Other service" class="card-img" />
             </div>
             <div class="card-body">
               <h3 class="card-title">Other service</h3>
