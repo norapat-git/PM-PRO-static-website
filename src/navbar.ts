@@ -1,8 +1,3 @@
-/**
- * Navigation Bar Component & Interactive Handler
- */
-
-// 🌐 ใส่ URL ลิงก์ของเว็บไซต์ภายนอก (Partner Websites) ที่นี่ได้เลยครับ:
 export const EXTERNAL_PARTNER_LINKS = [
   { name: 'Wintech', url: 'https://www.wintech.fi/' },
   { name: 'Yamauchi', url: 'https://yamauchi.co.jp/' },
@@ -12,7 +7,6 @@ export const EXTERNAL_PARTNER_LINKS = [
 ];
 
 export function renderNavbar(activePage: string = 'home'): string {
-  // สร้างรายการ Dropdown สำหรับ Partner Links อัตโนมัติ
   const partnerLinksHtml = EXTERNAL_PARTNER_LINKS.map(
     (item) => `
       <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="dropdown-item">
@@ -22,11 +16,9 @@ export function renderNavbar(activePage: string = 'home'): string {
   ).join('');
 
   return `
-  <!-- Main Navigation Header -->
   <header class="site-header" id="siteHeader">
     <div class="nav-container">
       
-      <!-- Brand Logo (Text: PM PRO) -->
       <a href="/index.html" class="brand-logo" title="PM PRO - Home">
         <span class="brand-text-logo">
           <span class="brand-pm">PM</span>
@@ -34,18 +26,15 @@ export function renderNavbar(activePage: string = 'home'): string {
         </span>
       </a>
 
-      <!-- Navigation Tabs / Links -->
       <nav>
         <ul class="nav-menu" id="navMenu">
           
-          <!-- 1. Home -->
           <li class="nav-item ${activePage === 'home' ? 'active' : ''}">
             <a href="/index.html" class="nav-link">
               <span>Home</span>
             </a>
           </li>
 
-          <!-- 2. On-Site Service (Dropdown) -->
           <li class="nav-item has-dropdown ${activePage === 'onsite' ? 'active' : ''}">
             <a href="/services/index.html" class="nav-link dropdown-toggle">
               <span>On-Site Service</span>
@@ -76,7 +65,6 @@ export function renderNavbar(activePage: string = 'home'): string {
             </div>
           </li>
 
-          <!-- 3. Machine / Equipment / Part (Dropdown) -->
           <li class="nav-item has-dropdown ${activePage === 'equipment' ? 'active' : ''}">
             <a href="/equipment/index.html" class="nav-link dropdown-toggle">
               <span>Machine/Equipment/Part</span>
@@ -110,14 +98,12 @@ export function renderNavbar(activePage: string = 'home'): string {
             </div>
           </li>
 
-          <!-- 4. Contact Us -->
           <li class="nav-item ${activePage === 'contact' ? 'active' : ''}">
             <a href="/contact.html" class="nav-link">
               <span>Contact Us</span>
             </a>
           </li>
 
-          <!-- 5. Link (External Partner Dropdown) -->
           <li class="nav-item has-dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <span>Link</span>
@@ -133,7 +119,6 @@ export function renderNavbar(activePage: string = 'home'): string {
         </ul>
       </nav>
 
-      <!-- Right Actions & Mobile Animated Hamburger -->
       <div class="nav-actions">
         <button class="mobile-toggle animated-hamburger" id="mobileToggle" aria-label="Toggle Menu">
           <span class="hamburger-box">
@@ -155,7 +140,7 @@ export function initNavbarInteractions(): void {
   const navMenu = document.getElementById('navMenu');
   const dropdownItems = document.querySelectorAll('.has-dropdown');
 
-  // Sticky header blur effect on scroll
+  // Sticky header on scroll
   window.addEventListener('scroll', () => {
     if (header) {
       if (window.scrollY > 10) {
@@ -166,7 +151,7 @@ export function initNavbarInteractions(): void {
     }
   });
 
-  // Mobile menu toggle with smooth 0.5s morphing animation
+  // Mobile menu toggle
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -174,7 +159,7 @@ export function initNavbarInteractions(): void {
       mobileToggle.classList.toggle('active', isOpen);
     });
 
-    // Close mobile menu when clicking outside
+    // Close on outside click
     document.addEventListener('click', (e) => {
       if (!navMenu.contains(e.target as Node) && !mobileToggle.contains(e.target as Node)) {
         navMenu.classList.remove('open');
@@ -182,7 +167,7 @@ export function initNavbarInteractions(): void {
       }
     });
 
-    // Close mobile menu when clicking any destination link
+    // Close on link click
     navMenu.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
@@ -191,7 +176,7 @@ export function initNavbarInteractions(): void {
     });
   }
 
-  // Mobile dropdown toggles
+  // Mobile dropdown toggle
   dropdownItems.forEach((item) => {
     const toggle = item.querySelector('.dropdown-toggle');
     if (toggle) {
@@ -199,7 +184,6 @@ export function initNavbarInteractions(): void {
         if (window.innerWidth < 992) {
           e.preventDefault();
           e.stopPropagation();
-          // Close other open dropdowns for a clean accordion effect
           dropdownItems.forEach((other) => {
             if (other !== item) other.classList.remove('open');
           });

@@ -79,9 +79,7 @@ body {
   z-index: 1000;
 }
 
-/* ==========================================================
-   TOP BAR (Optional contact & utility bar)
-========================================================== */
+/* TOP BAR (Optional contact & utility bar) */
 .top-bar {
   background: #004d56;
   color: var(--text-white-dim);
@@ -133,9 +131,7 @@ body {
   color: #ffffff;
 }
 
-/* ==========================================================
-   MAIN NAVIGATION BAR (Clear, High-Visibility Teal Header)
-========================================================== */
+/* MAIN NAVIGATION BAR (Clear, High-Visibility Teal Header) */
 .site-header {
   position: sticky;
   top: 0;
@@ -426,9 +422,7 @@ body {
   background-color: #ffb74d;
 }
 
-/* ==========================================================
-   MOBILE NAVIGATION DRAWER & DROPDOWNS (@media max-width: 991px)
-========================================================== */
+/* MOBILE NAVIGATION DRAWER & DROPDOWNS (@media max-width: 991px) */
 @media (max-width: 991px) {
   .mobile-toggle {
     display: flex !important;
@@ -583,9 +577,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ==========================================================
-   PAGE HERO / CONTENT STYLING (For visual excellence)
-========================================================== */
+/* PAGE HERO / CONTENT STYLING (For visual excellence) */
 .main-content {
   flex: 1;
 }
@@ -872,9 +864,7 @@ html {
   justify-content: center;
 }
 
-/* ==========================================================
-   UNIVERSAL SKELETON SHIMMER LOADER & PAGE PROGRESS BAR
-========================================================== */
+/* UNIVERSAL SKELETON SHIMMER LOADER & PAGE PROGRESS BAR */
 #pageProgressBar {
   position: fixed;
   top: 0;
@@ -1452,9 +1442,7 @@ html {
   border-color: rgba(0, 131, 143, 0.35);
 }
 
-/* ==========================================================
-   SKELETON LOADING & SHIMMER EFFECT
-========================================================== */
+/* SKELETON LOADING & SHIMMER EFFECT */
 @keyframes skeletonShimmer {
   0% {
     background-position: -200% 0;
@@ -1598,9 +1586,7 @@ html {
   flex-grow: 1;
 }
 
-/* ==========================================================
-   MINIMALIST DARK PILL BUTTON (Smooth 300ms ease-in-out)
-========================================================== */
+/* MINIMALIST DARK PILL BUTTON (Smooth 300ms ease-in-out) */
 .btn-pill-dark,
 .btn-read-more,
 .service-cta-btn {
@@ -1776,9 +1762,7 @@ html {
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* ==========================================================
-   RESPONSIVE DESIGN (Tablets & Mobile)
-========================================================== */
+/* RESPONSIVE DESIGN (Tablets & Mobile) */
 @media (max-width: 991px) {
   .top-bar {
     display: none;
@@ -1972,9 +1956,7 @@ html {
   }
 }
 
-/* ==========================================================
-   SERVICE DETAIL PAGES (Headbox, Alignment, etc.)
-========================================================== */
+/* SERVICE DETAIL PAGES (Headbox, Alignment, etc.) */
 .service-detail-hero {
   position: relative;
   background: #00363a;
@@ -2329,9 +2311,7 @@ html {
   transform: scale(1.06);
 }
 
-/* ==========================================================
-   IMAGE POPUP LIGHTBOX MODAL
-========================================================== */
+/* IMAGE POPUP LIGHTBOX MODAL */
 .gallery-card,
 .service-item-img-wrapper {
   cursor: zoom-in;
@@ -2517,9 +2497,7 @@ html {
   }
 }
 
-/* ==========================================================
-   CONTACT PAGE & PERSONNEL CARDS STYLING
-========================================================== */
+/* CONTACT PAGE & PERSONNEL CARDS STYLING */
 .contact-header-section {
   background: linear-gradient(180deg, #e0f2f1 0%, #f8fafc 100%);
   padding: 48px 24px 32px;

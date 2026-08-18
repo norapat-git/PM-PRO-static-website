@@ -341,9 +341,7 @@ function renderHomePage() {
   initScrollRevealAnimations();
 }
 
-/**
- * Initialize Staggered Scroll Reveal Animation using IntersectionObserver
- */
+// Initialize Staggered Scroll Reveal Animation using IntersectionObserver
 function initScrollRevealAnimations(): void {
   const cards = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
   if (!cards.length) return;
@@ -375,9 +373,7 @@ function initScrollRevealAnimations(): void {
   }
 }
 
-/**
- * Global Image Lightbox Modal Handler
- */
+// Global Image Lightbox Modal Handler
 function initImageLightbox(): void {
   let modal = document.getElementById('imageLightboxModal');
   if (!modal) {
@@ -448,10 +444,7 @@ function initImageLightbox(): void {
   }
 }
 
-/**
- * Image Skeleton Shimmer Loader
- * Smoothly transitions from shimmer placeholder to loaded image
- */
+
 function initImageSkeletonLoader(): void {
   const images = document.querySelectorAll<HTMLImageElement>('img');
 
@@ -474,9 +467,7 @@ function initImageSkeletonLoader(): void {
   });
 }
 
-/**
- * Top Page Loading Progress Bar
- */
+// Top Page Loading Progress Bar
 function initPageProgressBar(): void {
   let bar = document.getElementById('pageProgressBar');
   if (!bar) {
