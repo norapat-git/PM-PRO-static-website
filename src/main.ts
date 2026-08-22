@@ -2,8 +2,9 @@ import './style.css';
 import { renderNavbar, initNavbarInteractions } from './navbar';
 
 // Image Assets (Reorganized Assets Paths)
-import specializedServiceImg from './assets/specialized service.jpg';
-import qualityProductImg from './assets/quality product.jpg';
+import specializedServiceImg from './assets/hb carousel2.jpg';
+import qualityProductImg from './assets/sf carousel1.jpg';
+import paperMachineImg from './assets/paper machine.JPG';
 import logoHeaderImg from './assets/logoheader.png';
 import headboxImg from './assets/services/headbox/headbox service.jpg';
 import alignmentImg from './assets/services/alignment/alignment service.jpg';
@@ -102,13 +103,18 @@ function renderHomePage() {
             <div class="hero-bubbles-cluster">
               
               <!-- Card 1: On-Site Services -->
-              <div class="hero-bubble bubble-1">
+              <div class="hero-bubble bubble-1 desktop-popup-trigger"
+                data-popup-title="On-Site Services &amp; Products"
+                data-popup-sub="for Paper / Board / Tissue Machines"
+                data-popup-desc="Our certified engineers deliver precision on-site services — headbox tuning, roll alignment, nip testing, grinding &amp; coating, and steam-box optimization — keeping your paper machine line at peak performance."
+                data-popup-link="/services"
+                data-popup-link-label="Explore Services">
                 <div class="bubble-desktop-content">
-                  <div class="bubble-logo-wrapper">
-                    <img src="${logoHeaderImg}" alt="PMPRO Header Logo" class="bubble-logo-img" />
+                  <img src="${paperMachineImg}" alt="On-Site Services" class="bubble-bg-img" />
+                  <div class="bubble-overlay">
+                    <div class="bubble-title">On-Site Services and Products</div>
+                    <div class="bubble-sub">for Paper/Board/Tissue Machines</div>
                   </div>
-                  <div class="bubble-title">On-Site Services and Products</div>
-                  <div class="bubble-sub">for Paper/Board/Tissue Machines</div>
                 </div>
                 <div class="bubble-mobile-content">
                   <div class="mobile-bubble-img-box">
@@ -122,7 +128,12 @@ function renderHomePage() {
               </div>
 
               <!-- Card 2: High Quality Products -->
-              <div class="hero-bubble bubble-2">
+              <div class="hero-bubble bubble-2 desktop-popup-trigger"
+                data-popup-title="High Quality Products"
+                data-popup-sub="from World-wide Suppliers"
+                data-popup-desc="We source and supply premium paper machine components globally — doctor blades, forming fabrics, press felts, roll covers, suction box covers, and specialist chemicals — ensuring quality you can trust."
+                data-popup-link="/equipment"
+                data-popup-link-label="Browse Products">
                 <div class="bubble-desktop-content">
                   <img src="${qualityProductImg}" alt="High Quality Products" class="bubble-bg-img" />
                   <div class="bubble-overlay">
@@ -142,7 +153,12 @@ function renderHomePage() {
               </div>
 
               <!-- Card 3: Specialized Services / Equipment Renewal -->
-              <div class="hero-bubble bubble-3">
+              <div class="hero-bubble bubble-3 desktop-popup-trigger"
+                data-popup-title="Specialized Services"
+                data-popup-sub="from PMPRO and Partners"
+                data-popup-desc="Beyond standard maintenance, we provide specialized engineering services through our expert network — CD profiling, roll refurbishment, headbox lip rebuilds, superfinishing, and customized solutions tailored to your machine."
+                data-popup-link="/services"
+                data-popup-link-label="View Specialized Services">
                 <div class="bubble-desktop-content">
                   <img src="${specializedServiceImg}" alt="Specialized Services" class="bubble-bg-img" />
                   <div class="bubble-overlay">
@@ -488,6 +504,105 @@ function initPageProgressBar(): void {
   });
 }
 
+// Bubble Popup Modal (Desktop Only)
+function initBubblePopup(): void {
+  // Only run on desktop
+  if (window.matchMedia('(max-width: 900px)').matches) return;
+
+  // Create modal element
+  let modal = document.getElementById('bubblePopupModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'bubblePopupModal';
+    modal.className = 'bubble-popup-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.innerHTML = `
+      <div class="bubble-popup-backdrop" id="bubblePopupBackdrop"></div>
+      <div class="bubble-popup-card" id="bubblePopupCard">
+        <button class="bubble-popup-close" id="bubblePopupClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="bubble-popup-img-wrapper">
+          <img src="" alt="" class="bubble-popup-img" id="bubblePopupImg" />
+          <div class="bubble-popup-img-overlay"></div>
+        </div>
+        <div class="bubble-popup-body">
+          <div class="bubble-popup-sub" id="bubblePopupSub"></div>
+          <h3 class="bubble-popup-title" id="bubblePopupTitle"></h3>
+          <p class="bubble-popup-desc" id="bubblePopupDesc"></p>
+          <a href="#" class="bubble-popup-btn" id="bubblePopupBtn">
+            <span id="bubblePopupBtnLabel">Go</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  const backdrop = document.getElementById('bubblePopupBackdrop');
+  const card = document.getElementById('bubblePopupCard');
+  const closeBtn = document.getElementById('bubblePopupClose');
+  const popupImg = document.getElementById('bubblePopupImg') as HTMLImageElement;
+  const popupTitle = document.getElementById('bubblePopupTitle');
+  const popupSub = document.getElementById('bubblePopupSub');
+  const popupDesc = document.getElementById('bubblePopupDesc');
+  const popupBtn = document.getElementById('bubblePopupBtn') as HTMLAnchorElement;
+  const popupBtnLabel = document.getElementById('bubblePopupBtnLabel');
+
+  const openPopup = (trigger: HTMLElement) => {
+    const title = trigger.dataset.popupTitle || '';
+    const sub = trigger.dataset.popupSub || '';
+    const desc = trigger.dataset.popupDesc || '';
+    const link = trigger.dataset.popupLink || '#';
+    const linkLabel = trigger.dataset.popupLinkLabel || 'Go';
+    const bgImg = trigger.querySelector<HTMLImageElement>('.bubble-bg-img');
+
+    if (popupImg && bgImg) {
+      popupImg.src = bgImg.src;
+      popupImg.alt = bgImg.alt;
+    }
+    if (popupTitle) popupTitle.innerHTML = title;
+    if (popupSub) popupSub.textContent = sub;
+    if (popupDesc) popupDesc.textContent = desc;
+    if (popupBtn) popupBtn.href = link;
+    if (popupBtnLabel) popupBtnLabel.textContent = linkLabel;
+
+    modal!.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closePopup = () => {
+    modal!.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  // Attach listeners to triggers
+  const triggers = document.querySelectorAll<HTMLElement>('.desktop-popup-trigger');
+  triggers.forEach((trigger) => {
+    trigger.style.cursor = 'pointer';
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Only on desktop
+      if (window.matchMedia('(max-width: 900px)').matches) return;
+      openPopup(trigger);
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closePopup);
+  if (backdrop) backdrop.addEventListener('click', closePopup);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) closePopup();
+  });
+}
+
 // Check which page we are rendering
 function initApp() {
   initPageProgressBar();
@@ -506,6 +621,9 @@ function initApp() {
 
   // Initialize lightbox on all pages
   initImageLightbox();
+
+  // Initialize bubble popup (desktop only)
+  initBubblePopup();
 
   // Initialize skeleton shimmer transitions
   initImageSkeletonLoader();
