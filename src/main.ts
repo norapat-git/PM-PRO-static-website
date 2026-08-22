@@ -4,8 +4,8 @@ import { renderNavbar, initNavbarInteractions } from './navbar';
 // Image Assets (Reorganized Assets Paths)
 import specializedServiceImg from './assets/hb carousel2.jpg';
 import qualityProductImg from './assets/sf carousel1.jpg';
-import paperMachineImg from './assets/paper machine.JPG';
-import logoHeaderImg from './assets/logoheader.png';
+import paperMachineImg from './assets/paper-machine.jpg';
+
 import headboxImg from './assets/services/headbox/headbox service.jpg';
 import alignmentImg from './assets/services/alignment/alignment service.jpg';
 import niptestImg from './assets/services/niptest/niptest service.jpg';
@@ -548,7 +548,6 @@ function initBubblePopup(): void {
   }
 
   const backdrop = document.getElementById('bubblePopupBackdrop');
-  const card = document.getElementById('bubblePopupCard');
   const closeBtn = document.getElementById('bubblePopupClose');
   const popupImg = document.getElementById('bubblePopupImg') as HTMLImageElement;
   const popupTitle = document.getElementById('bubblePopupTitle');
