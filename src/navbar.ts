@@ -157,6 +157,10 @@ export function initNavbarInteractions(): void {
       e.stopPropagation();
       const isOpen = navMenu.classList.toggle('open');
       mobileToggle.classList.toggle('active', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (!isOpen) {
+        dropdownItems.forEach((d) => d.classList.remove('open'));
+      }
     });
 
     // Close on outside click
@@ -164,6 +168,8 @@ export function initNavbarInteractions(): void {
       if (!navMenu.contains(e.target as Node) && !mobileToggle.contains(e.target as Node)) {
         navMenu.classList.remove('open');
         mobileToggle.classList.remove('active');
+        document.body.style.overflow = '';
+        dropdownItems.forEach((d) => d.classList.remove('open'));
       }
     });
 
@@ -172,6 +178,8 @@ export function initNavbarInteractions(): void {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         mobileToggle.classList.remove('active');
+        document.body.style.overflow = '';
+        dropdownItems.forEach((d) => d.classList.remove('open'));
       });
     });
   }
@@ -189,6 +197,7 @@ export function initNavbarInteractions(): void {
         if (window.innerWidth < 992) {
           e.preventDefault();
           e.stopPropagation();
+          (toggle as HTMLElement).blur();
           dropdownItems.forEach((other) => {
             if (other !== item) other.classList.remove('open');
           });

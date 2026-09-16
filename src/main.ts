@@ -418,37 +418,34 @@ function initMobileHeroCarousel(): void {
 
   let currentIndex = 0;
   let autoSlideTimer: number | undefined;
-  let touchStartX = 0;
-  let touchCurrentX = 0;
-  let isSwiping = false;
+  let inactivityTimer: number | undefined;
+  let isScrollingTimer: number | undefined;
+  let isInteracting = false;
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeftStart = 0;
 
-  const updateCarousel = (index: number, animate: boolean = true) => {
-    currentIndex = (index + totalSlides) % totalSlides;
-    
-    if (window.innerWidth <= 900) {
-      if (animate) {
-        track.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
-      } else {
-        track.style.transition = 'none';
-      }
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  // Clear any residual inline transforms
+  track.style.transform = '';
+  track.style.transition = '';
 
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
-    } else {
-      track.style.transform = '';
-      track.style.transition = '';
-    }
+  const updateDots = (activeIndex: number) => {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === activeIndex);
+    });
   };
 
-  const startAutoSlide = () => {
-    stopAutoSlide();
-    if (window.innerWidth <= 900) {
-      autoSlideTimer = window.setInterval(() => {
-        updateCarousel(currentIndex + 1);
-      }, 3600);
-    }
+  const scrollToSlide = (index: number, smooth: boolean = true) => {
+    if (window.innerWidth > 900) return;
+    const slideWidth = track.clientWidth;
+    if (slideWidth <= 0) return;
+
+    currentIndex = (index + totalSlides) % totalSlides;
+    track.scrollTo({
+      left: currentIndex * slideWidth,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+    updateDots(currentIndex);
   };
 
   const stopAutoSlide = () => {
@@ -458,78 +455,178 @@ function initMobileHeroCarousel(): void {
     }
   };
 
+  const cancelInactivityTimer = () => {
+    if (inactivityTimer) {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = undefined;
+    }
+  };
+
+  // Only schedule auto-slide after a generous quiet period of zero user interaction
+  const resetInactivityAndScheduleAutoSlide = (delayMs: number = 6000) => {
+    stopAutoSlide();
+    cancelInactivityTimer();
+
+    // If user is currently touching or interacting, do not schedule
+    if (isInteracting) return;
+
+    inactivityTimer = window.setTimeout(() => {
+      if (!isInteracting && window.innerWidth <= 900) {
+        startAutoSlide();
+      }
+    }, delayMs);
+  };
+
+  const startAutoSlide = () => {
+    stopAutoSlide();
+    // Never start if user is interacting
+    if (isInteracting || window.innerWidth > 900) return;
+
+    autoSlideTimer = window.setInterval(() => {
+      if (isInteracting || window.innerWidth > 900) {
+        stopAutoSlide();
+        return;
+      }
+      const slideWidth = track.clientWidth;
+      if (slideWidth > 0) {
+        const nextIndex = (currentIndex + 1) % totalSlides;
+        scrollToSlide(nextIndex, true);
+      }
+    }, 4500);
+  };
+
+  // Sync active dot and current index continuously during native swipe
+  track.addEventListener('scroll', () => {
+    if (window.innerWidth > 900) return;
+    const slideWidth = track.clientWidth;
+    if (slideWidth > 0) {
+      const activeIdx = Math.round(track.scrollLeft / slideWidth);
+      if (activeIdx >= 0 && activeIdx < totalSlides && activeIdx !== currentIndex) {
+        currentIndex = activeIdx;
+        updateDots(currentIndex);
+      }
+    }
+
+    // While actively moving/scrolling, kill any running auto-slide immediately
+    stopAutoSlide();
+    cancelInactivityTimer();
+
+    // Wait until scrolling motion has completely settled before starting the 6s idle timer
+    if (isScrollingTimer) clearTimeout(isScrollingTimer);
+    isScrollingTimer = window.setTimeout(() => {
+      if (!isInteracting) {
+        resetInactivityAndScheduleAutoSlide(6000);
+      }
+    }, 350);
+  }, { passive: true });
+
+  // Touch gesture handlers
+  track.addEventListener('touchstart', () => {
+    isInteracting = true;
+    stopAutoSlide();
+    cancelInactivityTimer();
+  }, { passive: true });
+
+  const handleTouchEnd = () => {
+    isInteracting = false;
+    resetInactivityAndScheduleAutoSlide(6000);
+  };
+
+  track.addEventListener('touchend', handleTouchEnd, { passive: true });
+  track.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+  // Desktop Mouse Drag Emulation
+  track.addEventListener('mousedown', (e) => {
+    if (window.innerWidth > 900) return;
+    isInteracting = true;
+    isDragging = true;
+    startX = e.pageX - track.offsetLeft;
+    scrollLeftStart = track.scrollLeft;
+    track.style.scrollBehavior = 'auto';
+    track.style.cursor = 'grabbing';
+    stopAutoSlide();
+    cancelInactivityTimer();
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging || window.innerWidth > 900) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    const walk = x - startX;
+    track.scrollLeft = scrollLeftStart - walk;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    isInteracting = false;
+    track.style.cursor = 'grab';
+    track.style.scrollBehavior = 'smooth';
+    const slideWidth = track.clientWidth;
+    if (slideWidth > 0) {
+      const nearestSlide = Math.round(track.scrollLeft / slideWidth);
+      scrollToSlide(nearestSlide, true);
+    }
+    resetInactivityAndScheduleAutoSlide(6000);
+  });
+
+  // Controls: Dot Indicators
   dots.forEach((dot, index) => {
     dot.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      updateCarousel(index);
-      startAutoSlide();
+      scrollToSlide(index, true);
+      resetInactivityAndScheduleAutoSlide(6500);
     });
   });
 
+  // Controls: Prev / Next Buttons
   if (prevBtn) {
     prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      updateCarousel(currentIndex - 1);
-      startAutoSlide();
+      scrollToSlide(currentIndex - 1, true);
+      resetInactivityAndScheduleAutoSlide(6500);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      updateCarousel(currentIndex + 1);
-      startAutoSlide();
+      scrollToSlide(currentIndex + 1, true);
+      resetInactivityAndScheduleAutoSlide(6500);
     });
   }
 
-  track.addEventListener('touchstart', (e) => {
-    if (window.innerWidth > 900) return;
+  // Hover pauses on desktop-sized viewports when resizing
+  track.addEventListener('mouseenter', () => {
+    isInteracting = true;
     stopAutoSlide();
-    touchStartX = e.touches[0].clientX;
-    touchCurrentX = touchStartX;
-    isSwiping = true;
-    track.style.transition = 'none';
-  }, { passive: true });
-
-  track.addEventListener('touchmove', (e) => {
-    if (!isSwiping || window.innerWidth > 900) return;
-    touchCurrentX = e.touches[0].clientX;
-    const diff = touchCurrentX - touchStartX;
-    const baseOffset = -currentIndex * track.offsetWidth;
-    track.style.transform = `translateX(${baseOffset + diff}px)`;
-  }, { passive: true });
-
-  track.addEventListener('touchend', () => {
-    if (!isSwiping || window.innerWidth > 900) return;
-    isSwiping = false;
-    const diff = touchCurrentX - touchStartX;
-    if (diff < -40) {
-      updateCarousel(currentIndex + 1);
-    } else if (diff > 40) {
-      updateCarousel(currentIndex - 1);
-    } else {
-      updateCarousel(currentIndex);
-    }
-    startAutoSlide();
+    cancelInactivityTimer();
+  });
+  track.addEventListener('mouseleave', () => {
+    isInteracting = false;
+    resetInactivityAndScheduleAutoSlide(5000);
   });
 
-  track.addEventListener('mouseenter', stopAutoSlide);
-  track.addEventListener('mouseleave', startAutoSlide);
-
+  // Resize handling
   window.addEventListener('resize', () => {
     if (window.innerWidth <= 900) {
-      updateCarousel(currentIndex, false);
-      startAutoSlide();
+      scrollToSlide(currentIndex, false);
+      resetInactivityAndScheduleAutoSlide(6000);
     } else {
       stopAutoSlide();
+      cancelInactivityTimer();
       track.style.transform = '';
       track.style.transition = '';
     }
   });
 
+  // Initial setup
   if (window.innerWidth <= 900) {
-    updateCarousel(0, false);
-    startAutoSlide();
+    scrollToSlide(0, false);
+    resetInactivityAndScheduleAutoSlide(4000);
   }
 }
 
