@@ -176,11 +176,16 @@ export function initNavbarInteractions(): void {
     });
   }
 
-  // Mobile dropdown toggle
+  // Dropdown toggle handling (Mobile click & Desktop hover grace period)
+  let closeTimer: number | undefined;
+
   dropdownItems.forEach((item) => {
     const toggle = item.querySelector('.dropdown-toggle');
     if (toggle) {
       toggle.addEventListener('click', (e) => {
+        if (toggle.getAttribute('href') === '#') {
+          e.preventDefault();
+        }
         if (window.innerWidth < 992) {
           e.preventDefault();
           e.stopPropagation();
@@ -191,5 +196,27 @@ export function initNavbarInteractions(): void {
         }
       });
     }
+
+    // Desktop hover reliability: keep open on mouseenter, add small grace period on mouseleave
+    item.addEventListener('mouseenter', () => {
+      if (window.innerWidth >= 992) {
+        if (closeTimer) {
+          window.clearTimeout(closeTimer);
+          closeTimer = undefined;
+        }
+        dropdownItems.forEach((other) => {
+          if (other !== item) other.classList.remove('open');
+        });
+        item.classList.add('open');
+      }
+    });
+
+    item.addEventListener('mouseleave', () => {
+      if (window.innerWidth >= 992) {
+        closeTimer = window.setTimeout(() => {
+          item.classList.remove('open');
+        }, 180);
+      }
+    });
   });
 }
