@@ -630,36 +630,59 @@ function initMobileHeroCarousel(): void {
   }
 }
 
-// Initialize Staggered Scroll Reveal Animation using IntersectionObserver
+// Progressive Scroll-Driven Fade Animation (the more you scroll down, the clearer it gets)
 function initScrollRevealAnimations(): void {
-  const cards = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
-  if (!cards.length) return;
+  const elements = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
+  if (!elements.length) return;
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const delay = parseInt(el.dataset.delay || '0', 10);
-            setTimeout(() => {
-              el.classList.add('is-revealed');
-            }, delay);
-            obs.unobserve(el);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px',
+  const updateVisibility = () => {
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    
+    // Fade starts when element enters lower viewport boundary (96% of window height)
+    // Reaches full 100% clarity once it reaches 65% of viewport height (comfort zone)
+    const fadeStart = windowHeight * 0.96;
+    const fadeEnd = windowHeight * 0.65;
+
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+
+      if (rect.top >= fadeStart) {
+        // Below entering line: soft subtle starting presence (never an empty blank void)
+        el.style.opacity = '0.12';
+        el.style.transform = 'translateY(28px)';
+      } else if (rect.top <= fadeEnd) {
+        // Comfortably in view: 100% sharp and solid
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      } else {
+        // In the progressive fade zone: opacity and height directly scale with scroll distance
+        const progress = (fadeStart - rect.top) / (fadeStart - fadeEnd);
+        const clamped = Math.max(0, Math.min(1, progress));
+        // Smooth quadratic ease-out curve
+        const ease = 1 - Math.pow(1 - clamped, 2);
+        
+        el.style.opacity = (0.12 + 0.88 * ease).toFixed(3);
+        el.style.transform = `translateY(${(28 * (1 - ease)).toFixed(1)}px)`;
       }
-    );
+    });
+  };
 
-    cards.forEach((card) => observer.observe(card));
-  } else {
-    // Fallback if IntersectionObserver is not supported
-    cards.forEach((card) => card.classList.add('is-revealed'));
-  }
+  let ticking = false;
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateVisibility, { passive: true });
+
+  // Initial calculation on page load
+  updateVisibility();
 }
 
 // Global Image Lightbox Modal Handler

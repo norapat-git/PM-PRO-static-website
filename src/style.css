@@ -1685,17 +1685,17 @@ html {
   }
 }
 
-/* Staggered Scroll Reveal Animation */
+/* Progressive Scroll Reveal (Smooth continuous fade based on scroll progress) */
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(45px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  opacity: 0.12;
+  transform: translateY(28px);
+  transition: opacity 0.16s cubic-bezier(0.2, 0, 0, 1), transform 0.16s cubic-bezier(0.2, 0, 0, 1);
   will-change: opacity, transform;
 }
 
 .reveal-on-scroll.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .feature-card {
