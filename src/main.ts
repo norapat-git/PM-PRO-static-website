@@ -53,11 +53,12 @@ function renderHomePage() {
           <div class="hero-text">
             <div class="hero-badge">
               <span class="badge-dot"></span>
-              <span>WELCOME TO PM PRO</span>
+              <span class="badge-text">ABOUT PMPRO</span>
             </div>
             <h1 class="hero-title">Expert Industrial Services & Machinery for Paper Mills</h1>
             <p class="hero-subtitle">
-              Established in 2011 by industry specialists, PMPRO delivers high-quality on-site services, equipment renewal, and premium machinery parts to paper and pulp mills across Thailand and Southeast Asia.
+              <span class="desktop-subtitle-full">Established in 2011 by industry specialists, PMPRO delivers high-quality on-site services, equipment renewal, and premium machinery parts to paper and pulp mills across Thailand and Southeast Asia.</span>
+              <span class="mobile-subtitle-short">Since 2011, PMPRO delivers high-quality on-site services, equipment renewal, and premium machinery parts to paper mills across SE Asia.</span>
             </p>
             <div class="hero-key-points">
               <span class="key-pill">
@@ -80,103 +81,147 @@ function renderHomePage() {
               </span>
             </div>
 
-            <!-- Mobile-Only Hero Action Buttons -->
+            <!-- Mobile-Only Hero Action Buttons (Balanced Contact Us + Our Services) -->
             <div class="hero-actions mobile-only-actions">
-              <a href="#servicesSection" class="btn-mobile-hero btn-mobile-primary">
-                <span>Explore Services</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <polyline points="19 12 12 19 5 12"></polyline>
+              <a href="/contact.html" class="btn-mobile-hero btn-mobile-primary">
+                <span>Contact Us</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                 </svg>
               </a>
-              <a href="/contact.html" class="btn-mobile-hero btn-mobile-secondary">
-                <span>Contact Specialists</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              <a href="#servicesSection" class="btn-mobile-hero btn-mobile-ghost">
+                <span>Our Services</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </a>
             </div>
           </div>
 
-          <!-- Hero Visual: 3 Floating Animated Bubbles (Desktop) / Modern Card Grid (Mobile) -->
+          <!-- Hero Visual: 3 Floating Animated Bubbles (Desktop) / Modern Auto-Slide Carousel (Mobile) -->
           <div class="hero-visual">
-            <div class="hero-bubbles-cluster">
-              
-              <!-- Card 1: On-Site Services -->
-              <div class="hero-bubble bubble-1 desktop-popup-trigger"
-                data-popup-title="On-Site Services &amp; Products"
-                data-popup-sub="for Paper / Board / Tissue Machines"
-                data-popup-desc="Our certified engineers deliver precision on-site services — headbox tuning, roll alignment, nip testing, grinding &amp; coating, and steam-box optimization — keeping your paper machine line at peak performance."
-                data-popup-link="/services"
-                data-popup-link-label="Explore Services">
-                <div class="bubble-desktop-content">
-                  <img src="${paperMachineImg}" alt="On-Site Services" class="bubble-bg-img" />
-                  <div class="bubble-overlay">
-                    <div class="bubble-title">On-Site Services and Products</div>
-                    <div class="bubble-sub">for Paper/Board/Tissue Machines</div>
+            <div class="hero-carousel-container">
+              <div class="hero-bubbles-cluster" id="heroCarouselTrack">
+                
+                <!-- Card 1: On-Site Services -->
+                <div class="hero-bubble bubble-1 desktop-popup-trigger"
+                  data-popup-title="On-Site Services &amp; Products"
+                  data-popup-sub="for Paper / Board / Tissue Machines"
+                  data-popup-desc="Our certified engineers deliver precision on-site services — headbox tuning, roll alignment, nip testing, grinding &amp; coating, and steam-box optimization — keeping your paper machine line at peak performance."
+                  data-popup-link="/services"
+                  data-popup-link-label="Explore Services">
+                  <div class="bubble-desktop-content">
+                    <img src="${paperMachineImg}" alt="On-Site Services" class="bubble-bg-img" />
+                    <div class="bubble-overlay">
+                      <div class="bubble-title">On-Site Services and Products</div>
+                      <div class="bubble-sub">for Paper/Board/Tissue Machines</div>
+                    </div>
+                  </div>
+                  <div class="bubble-mobile-content">
+                    <div class="mobile-bubble-img-box">
+                      <img src="${headboxImg}" alt="On-Site Services" class="mobile-bubble-img" />
+                      <span class="mobile-bubble-tag">On-Site Services</span>
+                    </div>
+                    <div class="mobile-bubble-text-box">
+                      <h3 class="mobile-bubble-title">Precision On-Site Services</h3>
+                      <p class="mobile-bubble-sub">Headbox tuning, roll alignment, nip testing & maintenance for paper mills</p>
+                      <a href="/services/index.html" class="mobile-bubble-action">
+                        <span>Explore Services</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div class="bubble-mobile-content">
-                  <div class="mobile-bubble-img-box">
-                    <img src="${headboxImg}" alt="On-Site Services" class="mobile-bubble-img" />
+
+                <!-- Card 2: High Quality Products -->
+                <div class="hero-bubble bubble-2 desktop-popup-trigger"
+                  data-popup-title="High Quality Products"
+                  data-popup-sub="from World-wide Suppliers"
+                  data-popup-desc="We source and supply premium paper machine components globally — doctor blades, forming fabrics, press felts, roll covers, suction box covers, and specialist chemicals — ensuring quality you can trust."
+                  data-popup-link="/equipment"
+                  data-popup-link-label="Browse Products">
+                  <div class="bubble-desktop-content">
+                    <img src="${qualityProductImg}" alt="High Quality Products" class="bubble-bg-img" />
+                    <div class="bubble-overlay">
+                      <div class="bubble-title">High Quality Products</div>
+                      <div class="bubble-sub">from World-wide Suppliers</div>
+                    </div>
                   </div>
-                  <div class="mobile-bubble-text-box">
-                    <div class="mobile-bubble-title">ON-SITE SERVICES</div>
-                    <div class="mobile-bubble-sub">For Paper, Board & Tissue Machines</div>
+                  <div class="bubble-mobile-content">
+                    <div class="mobile-bubble-img-box">
+                      <img src="${qualityProductImg}" alt="High Quality Products" class="mobile-bubble-img" />
+                      <span class="mobile-bubble-tag">Suppliers & Parts</span>
+                    </div>
+                    <div class="mobile-bubble-text-box">
+                      <h3 class="mobile-bubble-title">High-Quality Machinery & Parts</h3>
+                      <p class="mobile-bubble-sub">Suction rolls, doctor blades, covers & premium components from world-wide suppliers</p>
+                      <a href="/equipment/index.html" class="mobile-bubble-action">
+                        <span>Browse Products</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                <!-- Card 3: Specialized Services / Equipment Renewal -->
+                <div class="hero-bubble bubble-3 desktop-popup-trigger"
+                  data-popup-title="Specialized Services"
+                  data-popup-sub="from PMPRO and Partners"
+                  data-popup-desc="Beyond standard maintenance, we provide specialized engineering services through our expert network — CD profiling, roll refurbishment, headbox lip rebuilds, superfinishing, and customized solutions tailored to your machine."
+                  data-popup-link="/services"
+                  data-popup-link-label="View Specialized Services">
+                  <div class="bubble-desktop-content">
+                    <img src="${specializedServiceImg}" alt="Specialized Services" class="bubble-bg-img" />
+                    <div class="bubble-overlay">
+                      <div class="bubble-title">Specialized Services</div>
+                      <div class="bubble-sub">from PMPRO and Partners</div>
+                    </div>
+                  </div>
+                  <div class="bubble-mobile-content">
+                    <div class="mobile-bubble-img-box">
+                      <img src="${specializedServiceImg}" alt="Equipment Renewal" class="mobile-bubble-img" />
+                      <span class="mobile-bubble-tag">Equipment Renewal</span>
+                    </div>
+                    <div class="mobile-bubble-text-box">
+                      <h3 class="mobile-bubble-title">Specialized Renewal & Upgrades</h3>
+                      <p class="mobile-bubble-sub">Roll refurbishing, headbox rebuilds & customized engineering solutions</p>
+                      <a href="/services/index.html" class="mobile-bubble-action">
+                        <span>Specialized Solutions</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
-              <!-- Card 2: High Quality Products -->
-              <div class="hero-bubble bubble-2 desktop-popup-trigger"
-                data-popup-title="High Quality Products"
-                data-popup-sub="from World-wide Suppliers"
-                data-popup-desc="We source and supply premium paper machine components globally — doctor blades, forming fabrics, press felts, roll covers, suction box covers, and specialist chemicals — ensuring quality you can trust."
-                data-popup-link="/equipment"
-                data-popup-link-label="Browse Products">
-                <div class="bubble-desktop-content">
-                  <img src="${qualityProductImg}" alt="High Quality Products" class="bubble-bg-img" />
-                  <div class="bubble-overlay">
-                    <div class="bubble-title">High Quality Products</div>
-                    <div class="bubble-sub">from World-wide Suppliers</div>
-                  </div>
+              <!-- Sleek Mobile Carousel Controls: Arrows + Indicators -->
+              <div class="hero-mobile-carousel-controls">
+                <button class="carousel-nav-btn prev-btn" id="heroCarouselPrev" aria-label="Previous Slide">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <div class="hero-carousel-dots" id="heroCarouselDots">
+                  <button class="hero-dot active" data-index="0" aria-label="Slide 1"></button>
+                  <button class="hero-dot" data-index="1" aria-label="Slide 2"></button>
+                  <button class="hero-dot" data-index="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="bubble-mobile-content">
-                  <div class="mobile-bubble-img-box">
-                    <img src="${qualityProductImg}" alt="High Quality Products" class="mobile-bubble-img" />
-                  </div>
-                  <div class="mobile-bubble-text-box">
-                    <div class="mobile-bubble-title">HIGH-QUALITY PRODUCTS</div>
-                    <div class="mobile-bubble-sub">Global Sourcing & Supply</div>
-                  </div>
-                </div>
+                <button class="carousel-nav-btn next-btn" id="heroCarouselNext" aria-label="Next Slide">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
               </div>
-
-              <!-- Card 3: Specialized Services / Equipment Renewal -->
-              <div class="hero-bubble bubble-3 desktop-popup-trigger"
-                data-popup-title="Specialized Services"
-                data-popup-sub="from PMPRO and Partners"
-                data-popup-desc="Beyond standard maintenance, we provide specialized engineering services through our expert network — CD profiling, roll refurbishment, headbox lip rebuilds, superfinishing, and customized solutions tailored to your machine."
-                data-popup-link="/services"
-                data-popup-link-label="View Specialized Services">
-                <div class="bubble-desktop-content">
-                  <img src="${specializedServiceImg}" alt="Specialized Services" class="bubble-bg-img" />
-                  <div class="bubble-overlay">
-                    <div class="bubble-title">Specialized Services</div>
-                    <div class="bubble-sub">from PMPRO and Partners</div>
-                  </div>
-                </div>
-                <div class="bubble-mobile-content bubble-mobile-wide">
-                  <div class="mobile-bubble-img-box mobile-wide-img">
-                    <img src="${specializedServiceImg}" alt="Equipment Renewal" class="mobile-bubble-img" />
-                  </div>
-                  <div class="mobile-bubble-text-box mobile-wide-text">
-                    <div class="mobile-bubble-title">EQUIPMENT RENEWAL</div>
-                    <div class="mobile-bubble-sub">Refurbishing & Upgrades</div>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -355,6 +400,137 @@ function renderHomePage() {
 
   initNavbarInteractions();
   initScrollRevealAnimations();
+  initMobileHeroCarousel();
+}
+
+// Auto-slide and touch-swipeable Hero Card Carousel on Mobile
+function initMobileHeroCarousel(): void {
+  const track = document.getElementById('heroCarouselTrack');
+  const dotsContainer = document.getElementById('heroCarouselDots');
+  const prevBtn = document.getElementById('heroCarouselPrev');
+  const nextBtn = document.getElementById('heroCarouselNext');
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll<HTMLElement>('.hero-bubble');
+  const dots = dotsContainer.querySelectorAll<HTMLElement>('.hero-dot');
+  const totalSlides = slides.length;
+  if (totalSlides === 0) return;
+
+  let currentIndex = 0;
+  let autoSlideTimer: number | undefined;
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isSwiping = false;
+
+  const updateCarousel = (index: number, animate: boolean = true) => {
+    currentIndex = (index + totalSlides) % totalSlides;
+    
+    if (window.innerWidth <= 900) {
+      if (animate) {
+        track.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
+      } else {
+        track.style.transition = 'none';
+      }
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    } else {
+      track.style.transform = '';
+      track.style.transition = '';
+    }
+  };
+
+  const startAutoSlide = () => {
+    stopAutoSlide();
+    if (window.innerWidth <= 900) {
+      autoSlideTimer = window.setInterval(() => {
+        updateCarousel(currentIndex + 1);
+      }, 3600);
+    }
+  };
+
+  const stopAutoSlide = () => {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = undefined;
+    }
+  };
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      updateCarousel(index);
+      startAutoSlide();
+    });
+  });
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      updateCarousel(currentIndex - 1);
+      startAutoSlide();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      updateCarousel(currentIndex + 1);
+      startAutoSlide();
+    });
+  }
+
+  track.addEventListener('touchstart', (e) => {
+    if (window.innerWidth > 900) return;
+    stopAutoSlide();
+    touchStartX = e.touches[0].clientX;
+    touchCurrentX = touchStartX;
+    isSwiping = true;
+    track.style.transition = 'none';
+  }, { passive: true });
+
+  track.addEventListener('touchmove', (e) => {
+    if (!isSwiping || window.innerWidth > 900) return;
+    touchCurrentX = e.touches[0].clientX;
+    const diff = touchCurrentX - touchStartX;
+    const baseOffset = -currentIndex * track.offsetWidth;
+    track.style.transform = `translateX(${baseOffset + diff}px)`;
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    if (!isSwiping || window.innerWidth > 900) return;
+    isSwiping = false;
+    const diff = touchCurrentX - touchStartX;
+    if (diff < -40) {
+      updateCarousel(currentIndex + 1);
+    } else if (diff > 40) {
+      updateCarousel(currentIndex - 1);
+    } else {
+      updateCarousel(currentIndex);
+    }
+    startAutoSlide();
+  });
+
+  track.addEventListener('mouseenter', stopAutoSlide);
+  track.addEventListener('mouseleave', startAutoSlide);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 900) {
+      updateCarousel(currentIndex, false);
+      startAutoSlide();
+    } else {
+      stopAutoSlide();
+      track.style.transform = '';
+      track.style.transition = '';
+    }
+  });
+
+  if (window.innerWidth <= 900) {
+    updateCarousel(0, false);
+    startAutoSlide();
+  }
 }
 
 // Initialize Staggered Scroll Reveal Animation using IntersectionObserver

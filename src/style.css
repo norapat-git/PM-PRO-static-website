@@ -745,6 +745,14 @@ html {
   word-spacing: normal;
 }
 
+.mobile-subtitle-short {
+  display: none;
+}
+
+.desktop-subtitle-full {
+  display: inline;
+}
+
 .hero-key-points {
   display: flex;
   flex-wrap: wrap;
@@ -789,8 +797,17 @@ html {
   justify-content: flex-end;
 }
 
-.bubble-mobile-content {
+.bubble-mobile-content,
+.hero-mobile-carousel-controls,
+.mobile-bubble-tag,
+.mobile-bubble-action {
   display: none;
+}
+
+.hero-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Minimalist Mouse Scroll Cue */
@@ -1096,7 +1113,7 @@ html {
 /* Mobile Responsive Hero Layout (Matching Mobile Mockup) */
 @media (max-width: 900px) {
   .page-hero {
-    padding: 24px 16px 40px !important;
+    padding: 20px 16px 36px !important;
     min-height: auto !important;
     display: block !important;
   }
@@ -1117,23 +1134,78 @@ html {
     text-align: left !important;
   }
 
+  /* 1. Minimalist Eyebrow Badge (No bulky capsule frame on mobile) */
+  .hero-badge {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-bottom: 6px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 1.5px !important;
+    color: #00838f !important;
+    font-weight: 800 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+
+  .badge-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  /* 2. Streamlined Typography & Spacing */
   .hero-title {
-    font-size: 1.85rem !important;
-    line-height: 1.25 !important;
-    letter-spacing: -0.5px !important;
+    font-size: 1.72rem !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.4px !important;
+    margin-bottom: 8px !important;
   }
 
   .hero-subtitle {
-    font-size: 0.95rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 16px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.55 !important;
+    color: #475569 !important;
+    margin-bottom: 12px !important;
   }
 
+  .mobile-subtitle-short {
+    display: inline !important;
+  }
+
+  .desktop-subtitle-full {
+    display: none !important;
+  }
+
+  /* 1b. Minimalist Key Points (1 item per line, left-aligned for balanced reading) */
   .hero-key-points {
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+    margin-bottom: 18px !important;
+    padding: 0 !important;
+  }
+
+  .key-pill {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    border-radius: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
     gap: 8px !important;
-    margin-bottom: 20px !important;
+    line-height: 1.4 !important;
+  }
+
+  .key-pill svg {
+    color: #00838f !important;
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
   }
 
   .hero-scroll-cue,
@@ -1142,20 +1214,22 @@ html {
     display: none !important;
   }
 
+  /* 2. Compact 1-Row CTA (Balanced Contact Us + Our Services with generous breathing room) */
   .hero-actions.mobile-only-actions {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
+    align-items: center !important;
     gap: 12px !important;
-    margin: 0 0 24px 0 !important;
+    margin: 0 0 20px 0 !important;
     width: 100% !important;
   }
 
   .btn-mobile-hero {
-    width: 100% !important;
-    border-radius: 9999px !important;
-    padding: 13px 20px !important;
+    width: auto !important;
+    border-radius: 12px !important;
+    padding: 11px 18px !important;
     font-weight: 700 !important;
-    font-size: 1.02rem !important;
+    font-size: 0.92rem !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1163,32 +1237,54 @@ html {
     text-decoration: none !important;
     transition: all 0.2s ease !important;
     box-sizing: border-box !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.2px !important;
   }
 
   .btn-mobile-primary {
+    flex: 1 !important;
     background: #00838f !important;
     color: #ffffff !important;
-    border: 2px solid #00838f !important;
-    box-shadow: 0 4px 14px rgba(0, 131, 143, 0.35) !important;
+    border: 1px solid #00838f !important;
+    box-shadow: 0 4px 14px rgba(0, 131, 143, 0.3) !important;
   }
 
   .btn-mobile-primary:active {
     background: #006064 !important;
-    border-color: #006064 !important;
+    transform: scale(0.98) !important;
   }
 
-  .btn-mobile-secondary {
-    background: #ffffff !important;
+  .btn-mobile-secondary,
+  .btn-mobile-ghost {
+    flex: 1 !important;
+    background: rgba(0, 131, 143, 0.08) !important;
     color: #00838f !important;
-    border: 2px solid #00838f !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(0, 131, 143, 0.28) !important;
+    box-shadow: none !important;
   }
 
-  .btn-mobile-secondary:active {
-    background: #f0fdfa !important;
+  .btn-mobile-secondary:active,
+  .btn-mobile-ghost:active {
+    background: rgba(0, 131, 143, 0.16) !important;
+    transform: scale(0.98) !important;
   }
 
-  /* Switch Bubbles to Crisp 2-Column Mobile Grid */
+  @media (max-width: 380px) {
+    .hero-title {
+      font-size: 1.55rem !important;
+    }
+    .btn-mobile-hero {
+      padding: 10px 12px !important;
+      font-size: 0.85rem !important;
+      gap: 6px !important;
+    }
+    .btn-mobile-hero svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+  }
+
+  /* 3. Modern Auto-Slide & Touch-Swipe Card Carousel (Spacious & Luxurious) */
   .bubble-desktop-content {
     display: none !important;
   }
@@ -1210,30 +1306,53 @@ html {
     padding: 0 !important;
   }
 
+  .hero-carousel-container {
+    width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    border-radius: 20px !important;
+  }
+
   .hero-bubbles-cluster {
     position: static !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: none !important;
     height: auto !important;
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow: visible !important;
+    gap: 0 !important;
     margin: 0 !important;
+    padding: 0 !important;
+    transform: translateX(0);
+    will-change: transform !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    cursor: grab !important;
+  }
+
+  .hero-bubbles-cluster:active {
+    cursor: grabbing !important;
   }
 
   .hero-bubble {
-    position: static !important;
+    position: relative !important;
+    flex: 0 0 100% !important;
     width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
-    border-radius: 16px !important;
+    border-radius: 20px !important;
     overflow: hidden !important;
     background: #ffffff !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
-    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 30px rgba(0, 50, 60, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(0, 131, 143, 0.18) !important;
     animation: none !important;
     transform: none !important;
     padding: 0 !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .hero-bubble.bubble-1,
@@ -1244,54 +1363,15 @@ html {
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
-  }
-
-  .hero-bubble.bubble-3 {
-    grid-column: 1 / -1 !important;
-  }
-
-  /* Mobile Click / Tap & Hover State: No position displacement, just a subtle, smooth scale */
-  .hero-bubble:hover,
-  .hero-bubble:active,
-  .hero-bubble.bubble-1:hover,
-  .hero-bubble.bubble-1:active,
-  .hero-bubble.bubble-2:hover,
-  .hero-bubble.bubble-2:active,
-  .hero-bubble.bubble-3:hover,
-  .hero-bubble.bubble-3:active {
-    transform: scale(1.02) !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    box-shadow: 0 8px 24px rgba(0, 96, 100, 0.16) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-  }
-
-  .hero-bubble:hover .mobile-bubble-img,
-  .hero-bubble:active .mobile-bubble-img {
-    transform: scale(1.04) !important;
-    transition: transform 0.3s ease !important;
-  }
-
-  .bubble-mobile-content.bubble-mobile-wide {
-    flex-direction: row !important;
-    align-items: center !important;
-    width: 100% !important;
+    grid-column: auto !important;
   }
 
   .mobile-bubble-img-box {
+    position: relative !important;
     width: 100% !important;
-    height: 125px !important;
+    height: 185px !important;
     overflow: hidden !important;
     background: #f1f5f9 !important;
-    position: relative !important;
-  }
-
-  .mobile-bubble-img-box.mobile-wide-img {
-    width: 110px !important;
-    height: 85px !important;
-    flex-shrink: 0 !important;
   }
 
   .mobile-bubble-img {
@@ -1299,33 +1379,145 @@ html {
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
+    transition: transform 0.5s ease !important;
   }
 
+  .hero-bubble:hover .mobile-bubble-img {
+    transform: scale(1.04) !important;
+  }
+
+  /* Glassmorphism Category Badge over Card Image */
+  .mobile-bubble-tag {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 14px !important;
+    left: 14px !important;
+    background: rgba(4, 47, 46, 0.78) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    color: #ffffff !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) !important;
+    z-index: 2 !important;
+  }
+
+  /* Spacious, High-Contrast Card Body (No cramped feeling) */
   .mobile-bubble-text-box {
-    padding: 12px 14px !important;
+    padding: 18px 20px 20px !important;
     background: #ffffff !important;
-    flex: 1 !important;
-    min-width: 0 !important;
-  }
-
-  .mobile-bubble-text-box.mobile-wide-text {
-    padding: 10px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    text-align: left !important;
   }
 
   .mobile-bubble-title {
-    font-size: 0.82rem !important;
+    font-size: 1.15rem !important;
     font-weight: 800 !important;
-    color: #006064 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    margin-bottom: 3px !important;
+    color: #042f2e !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    letter-spacing: -0.3px !important;
   }
 
   .mobile-bubble-sub {
-    font-size: 0.76rem !important;
+    font-size: 0.86rem !important;
     color: #475569 !important;
-    line-height: 1.3 !important;
+    line-height: 1.5 !important;
     font-weight: 500 !important;
+    margin: 0 0 10px 0 !important;
+  }
+
+  /* Action button inside card */
+  .mobile-bubble-action {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    align-self: flex-start !important;
+    color: #00838f !important;
+    font-weight: 700 !important;
+    font-size: 0.88rem !important;
+    text-decoration: none !important;
+    padding: 4px 0 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .mobile-bubble-action svg {
+    width: 16px !important;
+    height: 16px !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  .mobile-bubble-action:active {
+    color: #006064 !important;
+  }
+
+  .mobile-bubble-action:active svg {
+    transform: translateX(4px) !important;
+  }
+
+  /* Sleek Carousel Controls (Arrows + Animated Pill Dots) */
+  .hero-mobile-carousel-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    margin-top: 14px !important;
+  }
+
+  .carousel-nav-btn {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
+    color: #00838f !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.2s ease !important;
+    padding: 0 !important;
+  }
+
+  .carousel-nav-btn:active {
+    background: #00838f !important;
+    color: #ffffff !important;
+    transform: scale(0.92) !important;
+  }
+
+  .carousel-nav-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .hero-carousel-dots {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .hero-dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 4px !important;
+    background: #cbd5e1 !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .hero-dot.active {
+    width: 26px !important;
+    background: #00838f !important;
   }
 }
 
